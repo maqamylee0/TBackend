@@ -1,10 +1,8 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose');
-const PORT = 8000
-const WELCOME_MESSAGE= 'Welcome message DB CONNECTED AND SERVER RUNNING'
-const DATABASE_URL = 'mongodb+srv://emmilly:emmilly@cluster0.rruy4ud.mongodb.net/test?retryWrites=true&w=majority'
 
+require('dotenv').config()
 
 app.post('/api/todos', (req, res) =>{
 res.json({ "users": ["userOne", "userTwo"] }) 
@@ -16,10 +14,10 @@ app.get('/api/todos', (req, res) =>{
 }) ;
 
 // spin up the server 
-mongoose.connect(DATABASE_URL).then(() => {
+mongoose.connect(process.env.DATABASE_URL).then(() => {
     // successful connection
-    app.listen(PORT, ()=> {
-        let message = `${WELCOME_MESSAGE} http://localhost:${PORT}`
+    app.listen(process.env.PORT, ()=> {
+        let message = `${process.env.WELCOME_MESSAGE} http://localhost:${process.env.PORT}`
         console.log(message)
     })
 }).catch(error => {
